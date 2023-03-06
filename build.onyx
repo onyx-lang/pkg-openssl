@@ -1,0 +1,46 @@
+#load "./module"
+
+use core
+use cbindgen
+
+main :: () {
+    path := module_path(#file);
+
+    c_file_path := string.concat(path, "openssl.c");
+
+    result := generate_c_binding(.{
+        output_file = c_file_path,
+        foreign_block = openssl.foreign_block,
+
+        cast_map = .[
+            .{ openssl.SSL_METHOD, "SSL_METHOD *" },
+            .{ openssl.SSL_CTX, "SSL_CTX *" },
+            .{ openssl.SSL_BIO, "BIO *" },
+            .{ openssl.SSL, "SSL *" },
+            .{ openssl.X509, "X509 *" },
+            .{ openssl.X509_STORE, "X509_STORE *" },
+            .{ openssl.OPENSSL_INIT_SETTINGS, "OPENSSL_INIT_SETTINGS *" },
+        ],
+
+        preamble = .[
+"""
+#include "openssl/ssl.h"
+#include "openssl/bio.h"
+#include "openssl/err.h"
+"""
+        ],
+
+        custom_implementations = .[],
+    });
+
+    if !result {
+        os.exit(1);
+    }
+
+    result = compile_c_file(c_file_path, string.concat(path, "onyx_openssl"), libraries=.["ssl", "crypto"]);
+    if !result {
+        os.exit(1);
+    }
+
+    os.remove_file(c_file_path);
+}
