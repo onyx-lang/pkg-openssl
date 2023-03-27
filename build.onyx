@@ -2,6 +2,7 @@
 
 use core {package, *}
 use cbindgen {*}
+use openssl
 
 main :: () {
     path := module_path(#file);
