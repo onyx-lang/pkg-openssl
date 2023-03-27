@@ -1,7 +1,7 @@
 #load "./module"
 
-use core
-use cbindgen
+use core {package, *}
+use cbindgen {*}
 
 main :: () {
     path := module_path(#file);
