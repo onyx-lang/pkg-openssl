@@ -3,7 +3,7 @@ package {
     author "Brendan Hansen" 
     url "git://onyxlang.io/repo/openssl" 
     description "OpenSSL Bindings for Onyx" 
-    version "0.0.4" 
+    version "0.0.5" 
 }
 
 config {
