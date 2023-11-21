@@ -23,6 +23,7 @@ use runtime
     OPENSSL_init_ssl :: (opts: u32, settings: OPENSSL_INIT_SETTINGS) -> i32 ---
 
     TLS_client_method :: () -> SSL_METHOD ---
+    TLS_server_method :: () -> SSL_METHOD ---
 
     SSL_CTX_new :: (method: SSL_METHOD) -> SSL_CTX ---
     SSL_CTX_free :: (ctx: SSL_CTX) -> void ---
@@ -34,6 +35,8 @@ use runtime
     SSL_CTX_get_options :: (ctx: SSL_CTX) -> u32 ---
     SSL_CTX_set_options :: (ctx: SSL_CTX, options: u32) -> u32 ---
     SSL_CTX_get_cert_store :: (ctx: SSL_CTX) -> X509_STORE ---
+    SSL_CTX_use_certificate_file :: (ctx: SSL_CTX, filename: [&]u8, type: i32) -> bool ---
+    SSL_CTX_use_PrivateKey_file :: (ctx: SSL_CTX, filename: [&]u8, type: i32) -> bool ---
 
     BIO_new_socket :: (sock: i32, close_flag: i32) -> SSL_BIO ---
 
@@ -90,6 +93,14 @@ SSL_ERROR_WANT_RETRY_VERIFY :: 12
 
 TLSEXT_NAMETYPE_host_name :: 0
 SSL_CTRL_SET_TLSEXT_HOSTNAME :: 55
+
+X509_FILETYPE_PEM :: 1
+X509_FILETYPE_ASN1 :: 2
+X509_FILETYPE_DEFAULT :: 3
+
+SSL_FILETYPE_PEM :: X509_FILETYPE_PEM
+SSL_FILETYPE_ASN1 :: X509_FILETYPE_ASN1
+SSL_FILETYPE_DEFAULT :: X509_FILETYPE_DEFAULT
 
 BIO_NOCLOSE :: 0
 BIO_CLOSE   :: 1

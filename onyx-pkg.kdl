@@ -1,0 +1,18 @@
+package {
+    name "openssl" 
+    author "Brendan Hansen" 
+    url "git://onyxlang.io/repo/openssl" 
+    description "OpenSSL Bindings for Onyx" 
+    version "0.0.4" 
+}
+
+config {
+    dependency_source_path "./lib" 
+    dependency_binary_path "./bin" 
+}
+
+native {
+    library "onyx_openssl" 
+    build "onyx run build --generate-foreign-info" 
+}
+
