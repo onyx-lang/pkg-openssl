@@ -3,7 +3,7 @@ package {
     author "Brendan Hansen" 
     url "git://onyxlang.io/repo/openssl" 
     description "OpenSSL Bindings for Onyx" 
-    version "0.0.5" 
+    version "0.0.6" 
 }
 
 config {
@@ -13,6 +13,6 @@ config {
 
 native {
     library "onyx_openssl" 
-    build "onyx run --generate-foreign-info build"
+    build "onyx run --generate-foreign-info build" 
 }
 
