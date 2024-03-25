@@ -38,7 +38,17 @@ main :: () {
         os.exit(1);
     }
 
-    result = compile_c_file(c_file_path, string.concat(path, "onyx_openssl"), libraries=.["ssl", "crypto"]);
+    flags := os.command()
+        ->path("pkg-config")
+        ->args(.["--cflags", "--libs", "libssl", "libcrypto"])
+        ->output() ?? "";
+
+    flags = tprintf(
+        "-Wno-int-conversion {}",
+        string.strip_whitespace(flags)
+    );
+
+    result = compile_c_file(c_file_path, string.concat(path, "onyx_openssl"), flags=flags);
     if !result {
         os.exit(1);
     }
