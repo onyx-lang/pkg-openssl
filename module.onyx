@@ -11,7 +11,7 @@ use runtime
 
 #local __foreign_block :: #foreign "onyx_openssl" {
     // Crypto
-    d2i_X509 :: (x: ^X509, ppin: ^cptr(u8), length: u64) -> X509 ---
+    d2i_X509 :: (x: &X509, ppin: &cptr(u8), length: u64) -> X509 ---
     X509_STORE_add_cert :: (ctx: X509_STORE, x: X509) -> i32 ---
     X509_free :: (x: X509) -> void ---
 
